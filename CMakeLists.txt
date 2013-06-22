@@ -22,10 +22,15 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
   add_definitions(-fPIC) # this is a very important switch and some libraries seem now to have it....
   ## hide all not-exported symbols
   add_definitions( -fvisibility=hidden -Wall )
+elseif(MSVC)
+  # enable multi-core compilation with MSVC
+  add_definitions(/MP)
 endif()
 
 INCLUDE (FindPkgConfig)
 INCLUDE_DIRECTORIES( include )
+
+INCLUDE (PrecompiledHeader)
 
 # If this is an in-source build (CMAKE_SOURCE_DIR == CMAKE_BINARY_DIR),
 # write the library/executable files to the respective directories in the
